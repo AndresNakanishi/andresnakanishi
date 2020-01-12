@@ -3,7 +3,7 @@
 		message: "<?= $message ?>"
 	},{
 		allow_dismiss: true,
-		type: 'error',
+		type: 'danger',
 		animate: {
 			enter: 'animated fadeInDown',
 			exit: 'animated fadeOutUp'

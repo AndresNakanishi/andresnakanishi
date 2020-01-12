@@ -143,7 +143,7 @@ $this->assign('title',$title);
                     <div class="row">
                         <div class="col-md-5">
                             <div class="card-image">
-                                <a href="https://www.instagram.com/andresnakanishi" target="_blank">
+                                <a href="<?= $this->Url->build('/about', true); ?>" target="">
                                     <img class="img img-raised rounded" src="img/naka.jpg" />
                                 </a>
                             </div>

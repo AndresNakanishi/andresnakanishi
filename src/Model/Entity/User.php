@@ -1,8 +1,9 @@
 <?php
 namespace App\Model\Entity;
 
+use Cake\Auth\DefaultPasswordHasher; 
 use Cake\ORM\Entity;
-
+use Cake\ORM\TableRegistry;
 /**
  * User Entity
  *
@@ -55,4 +56,31 @@ class User extends Entity
     protected $_hidden = [
         'password',
     ];
+
+    
+    protected function _setPassword($value)
+    {
+        if (strlen($value)) {
+            $hasher = new DefaultPasswordHasher();
+            return $hasher->hash($value);
+        }
+    }
+
+    /**
+     * Obtiene la instancia de un usuario a partir de su id.
+     * 
+     * @param int $id ID del usuario
+     * 
+     * @return App\Model\Entity\User Intancia del usuario con los datos del profile.
+     */
+    public static function get_user(int $id)
+    {
+        return TableRegistry::get('users')
+            ->find('all')
+            ->contain('Profiles')
+            ->where([
+                'users.id' => $id
+            ])
+            ->first();
+    }
 }

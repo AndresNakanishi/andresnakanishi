@@ -1,11 +1,8 @@
 <div class="sidebar" id="sidebar" data-color="orange">
   <!-- Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"-->
   <div class="logo">
-    <a href="<?php echo $this->Url->build('/', true) ?>" class="simple-text logo-mini">
-      SB
-    </a>
-    <a href="<?php echo $this->Url->build('/', true) ?>" class="simple-text logo-normal">
-      Sistema Base
+    <a href="<?php echo $this->Url->build('/', true) ?>" style="font-weight: 700;" class="simple-text logo-normal d-flex justify-content-center">
+      <img src="<?php echo $this->Url->build('/', true) ?>img/logo.png" width="75%" />
     </a>
   </div>
   <div class="sidebar-wrapper" id="sidebar-wrapper">

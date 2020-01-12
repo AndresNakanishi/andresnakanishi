@@ -13,7 +13,7 @@ use Cake\ORM\Entity;
  * @property string $image_url
  * @property string $title
  * @property string $content
- * @property bool|null $status
+ * @property int|null $status
  * @property \Cake\I18n\FrozenTime|null $created_at
  * @property \Cake\I18n\FrozenTime|null $updated_at
  * @property \Cake\I18n\FrozenTime|null $published_at

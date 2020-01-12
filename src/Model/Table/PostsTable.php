@@ -84,7 +84,7 @@ class PostsTable extends Table
             ->notEmptyString('content');
 
         $validator
-            ->boolean('status')
+            ->integer('status')
             ->allowEmptyString('status');
 
         $validator

@@ -12,32 +12,21 @@ use App\Controller\AppController;
  */
 class ProfilesController extends AppController
 {
-    /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null
-     */
-    public function index()
+    public function initialize()
     {
-        $profiles = $this->paginate($this->Profiles);
-
-        $this->set(compact('profiles'));
+        parent::initialize();
     }
 
     /**
-     * View method
+     * Index method
      *
-     * @param string|null $id Profile id.
-     * @return \Cake\Http\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @return \Cake\Http\Response|void
      */
-    public function view($id = null)
+    public function index()
     {
-        $profile = $this->Profiles->get($id, [
-            'contain' => ['PermissionProfiles', 'Users'],
-        ]);
-
-        $this->set('profile', $profile);
+        $this->viewBuilder()->setLayout('system-datatables');
+        $profiles = $this->Profiles->find('all',['conditions' => ['code <>' => 'GOD']])->all();
+        $this->set('profiles', $profiles);
     }
 
     /**
@@ -47,15 +36,18 @@ class ProfilesController extends AppController
      */
     public function add()
     {
+        $this->viewBuilder()->setLayout('system-default');
         $profile = $this->Profiles->newEntity();
         if ($this->request->is('post')) {
+            $data = $this->request->getData();
+            filter_var($data['name'], FILTER_SANITIZE_STRING);
             $profile = $this->Profiles->patchEntity($profile, $this->request->getData());
             if ($this->Profiles->save($profile)) {
-                $this->Flash->success(__('The profile has been saved.'));
+                $this->Flash->success(__('El perfil ha sido guardado.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The profile could not be saved. Please, try again.'));
+            $this->Flash->error(__('El perfil no pudo ser guardado. Por favor, intente más tarde.'));
         }
         $this->set(compact('profile'));
     }
@@ -67,38 +59,43 @@ class ProfilesController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit($code = null)
     {
-        $profile = $this->Profiles->get($id, [
-            'contain' => [],
-        ]);
+        $this->viewBuilder()->setLayout('system-default');
+        $profile = $this->Profiles->find('all', ['conditions' => ['code' => $code]])->first();
         if ($this->request->is(['patch', 'post', 'put'])) {
+            $data = $this->request->getData();
+            filter_var($data['name'], FILTER_SANITIZE_STRING);
             $profile = $this->Profiles->patchEntity($profile, $this->request->getData());
             if ($this->Profiles->save($profile)) {
-                $this->Flash->success(__('The profile has been saved.'));
+                $this->Flash->success(__('El perfil ha sido guardado.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The profile could not be saved. Please, try again.'));
+            $this->Flash->error(__('El perfil no pudo ser guardado. Por favor, intente más tarde.'));
         }
         $this->set(compact('profile'));
     }
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id Profile id.
-     * @return \Cake\Http\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->request->allowMethod(['get','post', 'delete']);
+
         $profile = $this->Profiles->get($id);
-        if ($this->Profiles->delete($profile)) {
-            $this->Flash->success(__('The profile has been deleted.'));
+        $deleted = false;
+
+        if ($profile->allow_edit) {
+            try {
+                $deleted = $this->Profiles->delete($profile);
+            } catch(\Exception $e) {
+
+            }
+        }
+        
+        if ($deleted) {
+            $this->Flash->success(__('El perfil ha sido eliminado.'));
         } else {
-            $this->Flash->error(__('The profile could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Este perfil no puede ser eliminado.'));
         }
 
         return $this->redirect(['action' => 'index']);

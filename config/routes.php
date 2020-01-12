@@ -31,10 +31,25 @@ Router::scope('/', function (RouteBuilder $routes) {
     ]));
 
     $routes->applyMiddleware('csrf');
+
+    /* Rutas de la Webpage */
+    
     $routes->connect('/', ['controller' => 'Pages', 'action' => 'home']);
+    $routes->connect('blog', ['controller' => 'Pages', 'action' => 'blog']);
+    $routes->connect('blog/c/*', ['controller' => 'Pages', 'action' => 'category']);
+    $routes->connect('blog/*', ['controller' => 'Pages', 'action' => 'post']);
+    $routes->connect('/cases-of-study', ['controller' => 'Pages', 'action' => 'casesOfStudy']);
     $routes->connect('/webstudio', ['controller' => 'Pages', 'action' => 'webstudio']);
     $routes->connect('/about', ['controller' => 'Pages', 'action' => 'about']);
     $routes->connect('/contact', ['controller' => 'Pages', 'action' => 'contact']);
+
+    /* Rutas del Sistema */
+
+    $routes->connect('/login', ['controller' => 'Users', 'action' => 'login']);
+    $routes->connect('/logout', ['controller' => 'Users', 'action' => 'logout']);
+    $routes->connect('/dashboard', ['controller' => 'Users', 'action' => 'dashboard']);
+
+
 
     $routes->fallbacks(DashedRoute::class);
 });

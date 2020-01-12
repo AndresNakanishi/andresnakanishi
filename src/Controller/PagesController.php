@@ -5,6 +5,7 @@ use Cake\ORM\TableRegistry;
 
 class PagesController extends AppController
 {
+    
     public $paginate = [
         'order' => [
             'posts.id' => 'DESC'
@@ -28,9 +29,9 @@ class PagesController extends AppController
     public function blog()
     {
         $this->viewBuilder()->setLayout('guests');
-
+        
         $posts = TableRegistry::get('posts')->find('all', ['contain' => ['Categories','Users'], 'conditions' => ['status' => 2], 'order' => ['posts.id' => 'DESC'], 'limit' => 10])->all();
-
+        
         $this->set(compact('posts'));
     }
 
@@ -61,13 +62,19 @@ class PagesController extends AppController
 
         if ($this->request->is('post')) {
             $data = $this->request->getData();
-            dd($data);
             $this->Flash->success(__('¡Gracias! Pronto te contactaremos 😊'));
         }
     }
 
     // 3.0 About Page
     public function about()
+    {
+        $this->viewBuilder()->setLayout('guests');
+
+    }
+
+    // 4.0 Cases of Study
+    public function casesOfStudy()
     {
         $this->viewBuilder()->setLayout('guests');
 

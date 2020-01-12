@@ -1,6 +1,3 @@
-<?php 
-$system = 'System';
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>

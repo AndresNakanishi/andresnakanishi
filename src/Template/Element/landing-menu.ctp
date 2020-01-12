@@ -3,7 +3,7 @@
   <div class="container">
     <div class="navbar-translate">
       <a class="navbar-brand" href="<?php echo $this->Url->build('/', true) ?>" title="Andrés Nakanishi" alt="Andrés Nakanishi">
-        <img src="img/logo.png" height="50px" />
+        <img src="<?php echo $this->Url->build('/', true) ?>img/logo.png" height="50px" />
       </a>
       <button id="toggler" class="navbar-toggler navbar-toggler" type="button" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-bar top-bar"></span>
