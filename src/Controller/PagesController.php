@@ -1,69 +1,87 @@
 <?php
-/**
- * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- * @link      https://cakephp.org CakePHP(tm) Project
- * @since     0.2.9
- * @license   https://opensource.org/licenses/mit-license.php MIT License
- */
 namespace App\Controller;
 
-use Cake\Core\Configure;
-use Cake\Http\Exception\ForbiddenException;
-use Cake\Http\Exception\NotFoundException;
-use Cake\View\Exception\MissingTemplateException;
+use Cake\ORM\TableRegistry;
 
-/**
- * Static content controller
- *
- * This controller will render views from Template/Pages/
- *
- * @link https://book.cakephp.org/3.0/en/controllers/pages-controller.html
- */
 class PagesController extends AppController
 {
+    public $paginate = [
+        'order' => [
+            'posts.id' => 'DESC'
+        ]
+    ];
 
-    /**
-     * Displays a view
-     *
-     * @param array ...$path Path segments.
-     * @return \Cake\Http\Response|null
-     * @throws \Cake\Http\Exception\ForbiddenException When a directory traversal attempt.
-     * @throws \Cake\Http\Exception\NotFoundException When the view file could not
-     *   be found or \Cake\View\Exception\MissingTemplateException in debug mode.
-     */
-    public function display(...$path)
+    public function initialize()
     {
-        $count = count($path);
-        if (!$count) {
-            return $this->redirect('/');
-        }
-        if (in_array('..', $path, true) || in_array('.', $path, true)) {
-            throw new ForbiddenException();
-        }
-        $page = $subpage = null;
+        parent::initialize();
+        $this->Auth->allow();
+    }
 
-        if (!empty($path[0])) {
-            $page = $path[0];
-        }
-        if (!empty($path[1])) {
-            $subpage = $path[1];
-        }
-        $this->set(compact('page', 'subpage'));
+    // 0. Home - Just Layout
+    public function home()
+    {
+        $this->viewBuilder()->setLayout('guests');
 
-        try {
-            $this->render(implode('/', $path));
-        } catch (MissingTemplateException $exception) {
-            if (Configure::read('debug')) {
-                throw $exception;
-            }
-            throw new NotFoundException();
+    }
+
+    // 1.0 Blog Page
+    public function blog()
+    {
+        $this->viewBuilder()->setLayout('guests');
+
+        $posts = TableRegistry::get('posts')->find('all', ['contain' => ['Categories','Users'], 'conditions' => ['status' => 2], 'order' => ['posts.id' => 'DESC'], 'limit' => 10])->all();
+
+        $this->set(compact('posts'));
+    }
+
+    // 1.1 Category Blog Page
+    public function category($cat = null)
+    {
+        $this->viewBuilder()->setLayout('guests');
+
+        $posts = TableRegistry::get('posts')->find('all', ['contain' => ['Categories','Users'], 'conditions' => ['status' => 2, 'Categories.slug' => $cat], 'order' => ['posts.id' => 'DESC']])->all();
+
+        $this->set(compact('posts','cat'));
+    }
+
+    // 1.2 Individual Post
+    public function post($slug = null)
+    {
+        $this->viewBuilder()->setLayout('posts');
+
+        $post = TableRegistry::get('posts')->find('all', ['contain' => ['Categories','Users'],'conditions' => ['posts.slug' => $slug]])->first();
+
+        $this->set(compact('post'));
+    }
+
+    // 2.0 Webstudio Page
+    public function webstudio()
+    {
+        $this->viewBuilder()->setLayout('guests');
+
+        if ($this->request->is('post')) {
+            $data = $this->request->getData();
+            dd($data);
+            $this->Flash->success(__('¡Gracias! Pronto te contactaremos 😊'));
         }
     }
+
+    // 3.0 About Page
+    public function about()
+    {
+        $this->viewBuilder()->setLayout('guests');
+
+    }
+
+    // 5.0 Contact Page
+    public function contact()
+    {
+        $this->viewBuilder()->setLayout('guests');
+        if ($this->request->is('post')) {
+            $data = $this->request->getData();
+            $this->Flash->success(__('¡El mensaje fue enviado! Pronto te contactaremos 😊'));
+        }
+    }
+
+
 }
