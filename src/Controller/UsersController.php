@@ -241,7 +241,6 @@ class UsersController extends AppController
         $messages = $mt->find('all', ['conditions' => ['created_at >= curdate() - INTERVAL DAYOFWEEK(curdate())+6 DAY']])->count();
         $lastMessages = $mt->find()->
         select([
-            'Messages.id',
             'Messages.message',
             'Clients.name',
             'Clients.email',
