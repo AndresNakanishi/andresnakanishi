@@ -10,7 +10,7 @@ use Cake\ORM\Entity;
  * @property int $category_id
  * @property int $author_id
  * @property string $slug
- * @property string $image_url
+ * @property string $img_url
  * @property string $title
  * @property string $content
  * @property int|null $status
@@ -36,7 +36,7 @@ class Post extends Entity
         'category_id' => true,
         'author_id' => true,
         'slug' => true,
-        'image_url' => true,
+        'img_url' => true,
         'title' => true,
         'content' => true,
         'status' => true,
@@ -46,4 +46,24 @@ class Post extends Entity
         'category' => true,
         'user' => true,
     ];
+
+    protected function _getstate()
+    {
+        switch ($this->_properties['status']) {
+            case 0:
+                return 'Papelera';
+                break;
+            case 1:
+                return 'Borrador';
+                break;
+            case 2:
+                return 'Publicado';
+                break;
+        }
+    }
+
+    protected function _geturl()
+    {
+        return 'blog/'.$this->_properties['slug'];
+    }
 }

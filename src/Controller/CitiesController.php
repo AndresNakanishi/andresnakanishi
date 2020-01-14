@@ -12,6 +12,12 @@ use App\Controller\AppController;
  */
 class CitiesController extends AppController
 {
+
+    public function initialize()
+    {
+        parent::initialize();
+    }
+
     /**
      * Index method
      *
@@ -19,28 +25,11 @@ class CitiesController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Countries'],
-        ];
-        $cities = $this->paginate($this->Cities);
+        $this->viewBuilder()->setLayout('system-datatables');
+
+        $cities = $this->Cities->find('all', ['contain' => ['Countries']])->all();
 
         $this->set(compact('cities'));
-    }
-
-    /**
-     * View method
-     *
-     * @param string|null $id City id.
-     * @return \Cake\Http\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $city = $this->Cities->get($id, [
-            'contain' => ['Countries', 'Clients'],
-        ]);
-
-        $this->set('city', $city);
     }
 
     /**
@@ -50,17 +39,18 @@ class CitiesController extends AppController
      */
     public function add()
     {
+        $this->viewBuilder()->setLayout('system-default');
         $city = $this->Cities->newEntity();
         if ($this->request->is('post')) {
             $city = $this->Cities->patchEntity($city, $this->request->getData());
             if ($this->Cities->save($city)) {
-                $this->Flash->success(__('The city has been saved.'));
+                $this->Flash->success(__('La ciudad ha sido guardada.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The city could not be saved. Please, try again.'));
+            $this->Flash->error(__('La ciudad no ha sido configurada correctamente.'));
         }
-        $countries = $this->Cities->Countries->find('list', ['limit' => 200]);
+        $countries = $this->Cities->Countries->find('list');
         $this->set(compact('city', 'countries'));
     }
 
@@ -73,19 +63,20 @@ class CitiesController extends AppController
      */
     public function edit($id = null)
     {
+        $this->viewBuilder()->setLayout('system-default');
         $city = $this->Cities->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $city = $this->Cities->patchEntity($city, $this->request->getData());
             if ($this->Cities->save($city)) {
-                $this->Flash->success(__('The city has been saved.'));
+                $this->Flash->success(__('La ciudad ha sido guardada.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The city could not be saved. Please, try again.'));
+            $this->Flash->error(__('La ciudad no ha sido configurada correctamente.'));
         }
-        $countries = $this->Cities->Countries->find('list', ['limit' => 200]);
+        $countries = $this->Cities->Countries->find('list');
         $this->set(compact('city', 'countries'));
     }
 
@@ -98,12 +89,22 @@ class CitiesController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->request->allowMethod(['get','post', 'delete']);
+
         $city = $this->Cities->get($id);
-        if ($this->Cities->delete($city)) {
-            $this->Flash->success(__('The city has been deleted.'));
+
+        $deleted = false;
+
+        try {
+            $deleted = $this->Cities->delete($city);
+        } catch(\Exception $e) {
+
+        }    
+        
+        if ($deleted) {
+            $this->Flash->success(__('La ciudad ha sido eliminada.'));
         } else {
-            $this->Flash->error(__('The city could not be deleted. Please, try again.'));
+            $this->Flash->error(__('La ciudad no ha podido ser eliminada.'));
         }
 
         return $this->redirect(['action' => 'index']);

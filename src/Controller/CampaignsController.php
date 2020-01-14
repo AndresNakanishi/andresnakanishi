@@ -4,14 +4,20 @@ namespace App\Controller;
 use App\Controller\AppController;
 
 /**
- * Campaign Controller
+ * Campaigns Controller
  *
- * @property \App\Model\Table\CampaignTable $Campaign
+ * @property \App\Model\Table\CampaignsTable $Campaigns
  *
  * @method \App\Model\Entity\Campaign[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class CampaignController extends AppController
+class CampaignsController extends AppController
 {
+
+    public function initialize()
+    {
+        parent::initialize();
+    }
+
     /**
      * Index method
      *
@@ -19,25 +25,11 @@ class CampaignController extends AppController
      */
     public function index()
     {
-        $campaign = $this->paginate($this->Campaign);
+        $this->viewBuilder()->setLayout('system-datatables');
 
-        $this->set(compact('campaign'));
-    }
+        $campaigns = $this->paginate($this->Campaigns);
 
-    /**
-     * View method
-     *
-     * @param string|null $id Campaign id.
-     * @return \Cake\Http\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $campaign = $this->Campaign->get($id, [
-            'contain' => [],
-        ]);
-
-        $this->set('campaign', $campaign);
+        $this->set(compact('campaigns'));
     }
 
     /**
@@ -47,10 +39,11 @@ class CampaignController extends AppController
      */
     public function add()
     {
-        $campaign = $this->Campaign->newEntity();
+        $this->viewBuilder()->setLayout('system-default');
+        $campaign = $this->Campaigns->newEntity();
         if ($this->request->is('post')) {
-            $campaign = $this->Campaign->patchEntity($campaign, $this->request->getData());
-            if ($this->Campaign->save($campaign)) {
+            $campaign = $this->Campaigns->patchEntity($campaign, $this->request->getData());
+            if ($this->Campaigns->save($campaign)) {
                 $this->Flash->success(__('The campaign has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
@@ -69,12 +62,13 @@ class CampaignController extends AppController
      */
     public function edit($id = null)
     {
-        $campaign = $this->Campaign->get($id, [
+        $this->viewBuilder()->setLayout('system-default');
+        $campaign = $this->Campaigns->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $campaign = $this->Campaign->patchEntity($campaign, $this->request->getData());
-            if ($this->Campaign->save($campaign)) {
+            $campaign = $this->Campaigns->patchEntity($campaign, $this->request->getData());
+            if ($this->Campaigns->save($campaign)) {
                 $this->Flash->success(__('The campaign has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
@@ -94,8 +88,8 @@ class CampaignController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $campaign = $this->Campaign->get($id);
-        if ($this->Campaign->delete($campaign)) {
+        $campaign = $this->Campaigns->get($id);
+        if ($this->Campaigns->delete($campaign)) {
             $this->Flash->success(__('The campaign has been deleted.'));
         } else {
             $this->Flash->error(__('The campaign could not be deleted. Please, try again.'));

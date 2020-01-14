@@ -7,7 +7,9 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Campaign Model
+ * Campaigns Model
+ *
+ * @property \App\Model\Table\ClientsTable&\Cake\ORM\Association\HasMany $Clients
  *
  * @method \App\Model\Entity\Campaign get($primaryKey, $options = [])
  * @method \App\Model\Entity\Campaign newEntity($data = null, array $options = [])
@@ -18,7 +20,7 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Campaign[] patchEntities($entities, array $data, array $options = [])
  * @method \App\Model\Entity\Campaign findOrCreate($search, callable $callback = null, $options = [])
  */
-class CampaignTable extends Table
+class CampaignsTable extends Table
 {
     /**
      * Initialize method
@@ -30,9 +32,13 @@ class CampaignTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('campaign');
+        $this->setTable('campaigns');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
+
+        $this->hasMany('Clients', [
+            'foreignKey' => 'campaign_id',
+        ]);
     }
 
     /**
@@ -54,6 +60,11 @@ class CampaignTable extends Table
             ->notEmptyString('name');
 
         $validator
+            ->scalar('display')
+            ->maxLength('display', 100)
+            ->allowEmptyString('display');
+
+        $validator
             ->nonNegativeInteger('counter')
             ->allowEmptyString('counter');
 
@@ -64,6 +75,10 @@ class CampaignTable extends Table
         $validator
             ->dateTime('updated_at')
             ->allowEmptyDateTime('updated_at');
+
+        $validator
+            ->dateTime('finish_at')
+            ->allowEmptyDateTime('finish_at');
 
         return $validator;
     }

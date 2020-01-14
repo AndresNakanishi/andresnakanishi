@@ -1,21 +1,21 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\BusinessTable;
+use App\Model\Table\ClientsTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\BusinessTable Test Case
+ * App\Model\Table\ClientsTable Test Case
  */
-class BusinessTableTest extends TestCase
+class ClientsTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \App\Model\Table\BusinessTable
+     * @var \App\Model\Table\ClientsTable
      */
-    public $Business;
+    public $Clients;
 
     /**
      * Fixtures
@@ -23,7 +23,11 @@ class BusinessTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.Business',
+        'app.Clients',
+        'app.Cities',
+        'app.Businesses',
+        'app.Campaigns',
+        'app.Messages',
     ];
 
     /**
@@ -34,8 +38,8 @@ class BusinessTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('Business') ? [] : ['className' => BusinessTable::class];
-        $this->Business = TableRegistry::getTableLocator()->get('Business', $config);
+        $config = TableRegistry::getTableLocator()->exists('Clients') ? [] : ['className' => ClientsTable::class];
+        $this->Clients = TableRegistry::getTableLocator()->get('Clients', $config);
     }
 
     /**
@@ -45,7 +49,7 @@ class BusinessTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Business);
+        unset($this->Clients);
 
         parent::tearDown();
     }
@@ -66,6 +70,16 @@ class BusinessTableTest extends TestCase
      * @return void
      */
     public function testValidationDefault()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test buildRules method
+     *
+     * @return void
+     */
+    public function testBuildRules()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

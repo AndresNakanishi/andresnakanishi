@@ -8,9 +8,13 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string $name
+ * @property string|null $display
  * @property int|null $counter
  * @property \Cake\I18n\FrozenTime|null $createad_at
  * @property \Cake\I18n\FrozenTime|null $updated_at
+ * @property \Cake\I18n\FrozenTime|null $finish_at
+ *
+ * @property \App\Model\Entity\Client[] $clients
  */
 class Campaign extends Entity
 {
@@ -25,8 +29,11 @@ class Campaign extends Entity
      */
     protected $_accessible = [
         'name' => true,
+        'display' => true,
         'counter' => true,
         'createad_at' => true,
         'updated_at' => true,
+        'finish_at' => true,
+        'clients' => true,
     ];
 }

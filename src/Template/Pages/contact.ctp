@@ -3,8 +3,8 @@ $title = "Contacto";
 $this->assign('title', $title);
 ?>
 
-<div class="page-header page-header-small" style="height:35vh;" filter-color="black">
-    <div class="page-header-image" data-parallax="true" style="background-image: url('img/header.jpg');background-position:50% 30%;">
+<div class="page-header page-header-small" style="max-height: 20vh;" filter-color="black">
+    <div class="page-header-image" data-parallax="true" style="background-image: url('img/contact.jpg');background-position:50% 30%;">
     </div>
 </div>
 
@@ -14,7 +14,7 @@ $this->assign('title', $title);
         <div class="row">
             <div class="col-md-5">
                 <h2 class="title">¡Contáctame!</h2>
-                <h4 class="description" style="font-weight:400;color:#666">¿Necesitas más información? En lo posible voy a sacarte de dudas, y si quieres contratar mi o nuestros servicios, en lo posible llegar a un acuerdo.</h4>
+                <h4 class="description" style="font-weight:400;color:#666">¿Necesitas más información? En lo posible voy a sacarte de dudas, y si quieres contratar mi o nuestros servicios para llegar a una solución.</h4>
                 <div class="info info-horizontal">
                     <div class="icon icon-primary">
                         <i class="now-ui-icons tech_mobile"></i>
@@ -69,15 +69,27 @@ $this->assign('title', $title);
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="place">Lugar</label>
-                                <select class="form-control" id="place" name="place" required>
-                                  <option>Videollamada</option>
-                                  <option>Mar del Plata</option>
-                                  <option selected>Miramar</option>
-                                  <option>Morelia</option>
-                                  <option>Zitácuaro</option>
-                                </select>
-                              </div>
+                                <?= $this->Form->control('city_id', [
+                                    'options' => $cities,
+                                    'class' => 'form-control',
+                                    'label' => [
+                                        'class' => 'control-label',
+                                        'text' => 'Lugar:'
+                                    ],
+                                    'required'
+                                ]) ?>
+                            </div>
+                            <div class="form-group">
+                                <?= $this->Form->control('campaign_id', [
+                                    'options' => $campaigns,
+                                    'class' => 'form-control',
+                                    'label' => [
+                                        'class' => 'control-label',
+                                        'text' => 'Referencia:'
+                                    ],
+                                    'required'
+                                ]) ?>
+                            </div>
                             <div class="form-group">
                                 <label>Tu mensaje</label>
                                 <textarea name="message" class="form-control" id="message" rows="6" required></textarea>

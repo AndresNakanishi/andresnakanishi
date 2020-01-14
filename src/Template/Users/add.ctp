@@ -71,7 +71,7 @@ $this->assign('title', $title);?>
                 </div>                    
             </div>                            
             <div class="card-footer d-flex justify-content-between">
-                <a href="<?= $this->Url->build('/', true) ?><?= strtolower($this->request->controller) ?>/" class="btn btn-fill btn-primary">Volver</a>
+                <a href="<?= $this->Url->build('/', true) ?><?= strtolower($this->request->getParam('controller')) ?>/" class="btn btn-fill btn-primary">Volver</a>
                 <?= $this->Form->button(__('Agregar'), [
                     'class' => 'btn btn-fill btn-danger'
                 ]) ?>

@@ -67,10 +67,10 @@ class PostsTable extends Table
             ->add('slug', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
-            ->scalar('image_url')
-            ->maxLength('image_url', 200)
-            ->requirePresence('image_url', 'create')
-            ->notEmptyFile('image_url');
+            ->scalar('img_url')
+            ->maxLength('img_url', 200)
+            ->requirePresence('img_url', 'create')
+            ->notEmptyString('img_url');
 
         $validator
             ->scalar('title')

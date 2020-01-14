@@ -41,6 +41,42 @@
           <p>Dashboard</p>
         </a>
       </li>
+      <li class="<?php if($this->request->getParam('controller') == 'Messages' && $this->request->getParam('action') == 'index'){ echo 'active';} ?>">
+        <a class="d-flex align-items-center" href="<?php echo $this->Url->build('/', true) ?>messages">
+          <i class="far fa-envelope"></i>
+          <p>Mensajes</p>
+        </a>
+      </li>
+      <li>                 
+        <a data-toggle="collapse" href="#clientes">
+            <i class="fas fa-funnel-dollar"></i>
+            <p>Clientes
+              <b class="caret"></b>
+            </p>
+        </a>
+        <div class="collapse " id="clientes">
+          <ul class="nav">
+            <li class="<?php if($this->request->getParam('controller') == 'Clients' && $this->request->getParam('action') == 'index'){ echo 'active';} ?>">
+              <a class="d-flex align-items-center" href="<?php echo $this->Url->build('/', true) ?>clients">
+                <i class="fas fa-users"></i>
+                <p>Clientes</p>
+              </a>
+            </li>
+            <li class="<?php if($this->request->getParam('controller') == 'Businesses' && $this->request->getParam('action') == 'index'){ echo 'active';} ?>">
+              <a class="d-flex align-items-center" href="<?php echo $this->Url->build('/', true) ?>businesses">
+                <i class="fas fa-building"></i>
+                <p>Empresas / Proyectos</p>
+              </a>
+            </li>
+            <li class="<?php if($this->request->getParam('controller') == 'Campaigns' && $this->request->getParam('action') == 'index'){ echo 'active';} ?>">
+              <a class="d-flex align-items-center" href="<?php echo $this->Url->build('/', true) ?>campaigns">
+                <i class="fas fa-align-justify"></i>
+                <p>Campañas</p>
+              </a>
+            </li>         
+          </ul>
+        </div>             
+      </li>
       <li>                 
         <a data-toggle="collapse" href="#blog">
             <i class="fas fa-book"></i>
@@ -67,9 +103,7 @@
       </li>
       <li>                 
         <a data-toggle="collapse" href="#gestion">
-          
             <i class="fas fa-cog"></i>
-          
             <p>
               Gestión <b class="caret"></b>
             </p>
@@ -86,6 +120,20 @@
               <a class="d-flex align-items-center" href="<?php echo $this->Url->build('/', true) ?>profiles">
                 <i class="fas fa-address-card"></i> 
                 <p>Perfiles</p>
+              </a>
+            </li>
+
+            <li class="<?php if($this->request->getParam('controller') == 'Countries'){ echo 'active';} ?>">
+              <a class="d-flex align-items-center" href="<?php echo $this->Url->build('/', true) ?>countries">
+                <i class="fas fa-globe"></i> 
+                <p>Países</p>
+              </a>
+            </li>
+
+            <li class="<?php if($this->request->getParam('controller') == 'Cities'){ echo 'active';} ?>">
+              <a class="d-flex align-items-center" href="<?php echo $this->Url->build('/', true) ?>cities">
+                <i class="fas fa-city"></i> 
+                <p>Ciudades</p>
               </a>
             </li>            
           </ul>

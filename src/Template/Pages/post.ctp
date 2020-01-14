@@ -11,7 +11,7 @@ $this->assign('image', $image);
 $this->assign('author', $author);
 $this->assign('url', $url);
 ?>
-<div class="page-header page-header-small" filter-color="black-overlay" style="max-height: 50vh;">
+<div class="page-header page-header-small" filter-color="black" style="max-height: 50vh;">
     <div class="page-header-image" data-parallax="true" style="background-image: url(<?= $image ?>); transform: translate3d(0px, 0px, 0px);">
     </div>
     <div class="content-center">
@@ -62,7 +62,7 @@ $this->assign('url', $url);
                     </div>
                     <div class="col-md-8 mr-auto">
                         <h4 class="card-title text-left" itemprop="author"><?= $author ?></h4>
-                        <p class="description text-left">I've been trying to figure out the bed design for the master bedroom at our Hidden Hills compound...I like good music from Youtube.</p>
+                        <p class="description text-left">Traté de hacer la mejor descripción posible pero bueno, la realidad es dura como la verdura.</p>
                     </div>
                 </div>
             </div>

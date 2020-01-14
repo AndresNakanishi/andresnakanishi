@@ -2,12 +2,13 @@
 $title = "Webstudio";
 $this->assign('title',$title);
 ?>
-<div class="page-header page-header-small">
-    <div class="page-header-image" data-parallax="true" style="background-image: url('img/bg.jpg');background-position:50% 15%;">
+<div class="page-header page-header-small" filter-color="primary" style="max-height: 20vh;">
+    <div class="page-header-image" data-parallax="true" style="background-image: url('img/webstudio-header.jpg');background-position:50% 15%;">
     </div>
     <div class="content-center">
       <div class="container">
-        <h1 class="title">Éste es nuestro estudio</h1>
+        <h1 class="title d-none d-xl-block d-lg-block d-md-block">Mi Webstudio</h1>
+        <h1 class="title d-block d-sm-block d-md-none">WebStudio</h1>
       </div>
     </div>
 </div>
@@ -86,12 +87,12 @@ $this->assign('title',$title);
     </div>
 </div>
 
-<div class="features-2 section-image" style="background-image: url('img/bg-meeting.jpg')">
+<div class="features-2 section-image" style="background-image: url('img/webstudio-bg.jpg')">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-8 mr-auto ml-auto">
-                <h2 class="title">Somos de mucha ayuda</h2>
-                <h4 class="description"><b>En la actualidad es necesario contar con una presencia digital debido al gran desarrollo competitivo de las redes. Las personas buscan información para comprar algún producto y/o solicitando servicios. Por lo tanto, día a día las características de los diseños que ofrecemos son creativos, intuitivos, responsivos, acorde al presupuesto.</b></h4>
+                <h2 class="title">Somos el Estudio Ideal</h2>
+                <h4 class="description"><b>Nosotros somos el grupo de personas ideal para que comiences a crecer, por eso en la actualidad es necesario contar con una presencia digital debido al gran desarrollo de las redes. Las personas buscan información para comprar algún producto y/o solicitando servicios. Por lo tanto, día a día las características de los diseños que ofrecemos son creativos, intuitivos, responsivos, acorde al presupuesto.</b></h4>
             </div>
         </div>
 
@@ -101,7 +102,7 @@ $this->assign('title',$title);
                     <div class="icon icon-success icon-circle">
                         <i class="fas fa-pen-nib"></i>
                     </div>
-                    <h4 class="info-title">Branding<br>Estratégia de Marca</h4>
+                    <h4 class="info-title">Branding<br>Estrategia de Marca</h4>
                     <p class="description"><b>Es importante porque no solo es lo que causa una impresión memorable en sus clientes y que la misma sea adaptable a distintos entornos, tanto gráficos como digitales.</b></p>
                 </div>
             </div>

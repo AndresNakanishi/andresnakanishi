@@ -1,13 +1,14 @@
 <?php 
     $title = 'Categoría';
     $this->assign('title', $title);
+    $bg = $this->Url->build('/', true)."img/hh.jpg";
 ?>
-<div class="page-header page-header-small" filter-color="black-overlay" style="max-height: 20vh;">
-    <div class="page-header-image" data-parallax="true" style="background-image: url('../../img/header.jpg');"></div>
+<div class="page-header page-header-small" filter-color="primary" style="max-height: 20vh;">
+    <div class="page-header-image" data-parallax="true" style="background-image: url('<?= $bg ?>');"></div>
     <div class="content-center">
         <div class="row">
             <div class="col-md-8 ml-auto mr-auto text-center">
-                <h2 class="title"><?= $title ?></h2>
+                <h2 class="title" style="text-transform: capitalize;"><?= $cat ?></h2>
             </div>
         </div>
     </div>

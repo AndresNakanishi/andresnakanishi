@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * Messages Controller
@@ -12,6 +13,12 @@ use App\Controller\AppController;
  */
 class MessagesController extends AppController
 {
+    
+    public function initialize()
+    {
+        parent::initialize();
+    }
+    
     /**
      * Index method
      *
@@ -19,10 +26,38 @@ class MessagesController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Clients'],
-        ];
-        $messages = $this->paginate($this->Messages);
+        $this->viewBuilder()->setLayout('system-datatables');
+
+        $messages = $this->Messages->find();
+
+        $messages->select([
+            'Messages.id',
+            'Clients.name',
+            'Clients.email',
+            'Messages.created_at',
+            'Businesses.name',
+            'Cities.name'
+        ])->join([[
+            'table' => 'clients',
+            'alias' => 'Clients',
+            'type' => 'INNER',
+            'conditions' => ['Clients.id=Messages.client_id']
+        ]])->join([[
+            'table' => 'businesses',
+            'alias' => 'Businesses',
+            'type' => 'LEFT',
+            'conditions' => ['Businesses.id=Clients.business_id']
+        ]])->join([[
+            'table' => 'cities',
+            'alias' => 'Cities',
+            'type' => 'LEFT',
+            'conditions' => ['Cities.id=Clients.city_id']
+        ]])->enableHydration(false)
+        ->toList();
+
+
+
+        $this->Messages->find('all', ['contain' => ['Clients']])->all();
 
         $this->set(compact('messages'));
     }
@@ -36,57 +71,38 @@ class MessagesController extends AppController
      */
     public function view($id = null)
     {
-        $message = $this->Messages->get($id, [
-            'contain' => ['Clients'],
-        ]);
+        $this->viewBuilder()->setLayout('system-default');
+
+        $message = $this->Messages->find();
+
+        $message->select([
+            'Messages.id',
+            'Messages.message',
+            'Clients.name',
+            'Clients.email',
+            'Messages.created_at',
+            'Businesses.name',
+            'Cities.name'
+        ])->join([[
+            'table' => 'clients',
+            'alias' => 'Clients',
+            'type' => 'INNER',
+            'conditions' => ['Clients.id=Messages.client_id']
+        ]])->join([[
+            'table' => 'businesses',
+            'alias' => 'Businesses',
+            'type' => 'LEFT',
+            'conditions' => ['Businesses.id=Clients.business_id']
+        ]])->join([[
+            'table' => 'cities',
+            'alias' => 'Cities',
+            'type' => 'LEFT',
+            'conditions' => ['Cities.id=Clients.city_id']
+        ]])->where(['Messages.id' => $id])->enableHydration(false)
+        ->toList();
+        $message = $message->first();
 
         $this->set('message', $message);
-    }
-
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
-     */
-    public function add()
-    {
-        $message = $this->Messages->newEntity();
-        if ($this->request->is('post')) {
-            $message = $this->Messages->patchEntity($message, $this->request->getData());
-            if ($this->Messages->save($message)) {
-                $this->Flash->success(__('The message has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The message could not be saved. Please, try again.'));
-        }
-        $clients = $this->Messages->Clients->find('list', ['limit' => 200]);
-        $this->set(compact('message', 'clients'));
-    }
-
-    /**
-     * Edit method
-     *
-     * @param string|null $id Message id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function edit($id = null)
-    {
-        $message = $this->Messages->get($id, [
-            'contain' => [],
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $message = $this->Messages->patchEntity($message, $this->request->getData());
-            if ($this->Messages->save($message)) {
-                $this->Flash->success(__('The message has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The message could not be saved. Please, try again.'));
-        }
-        $clients = $this->Messages->Clients->find('list', ['limit' => 200]);
-        $this->set(compact('message', 'clients'));
     }
 
     /**
@@ -98,12 +114,22 @@ class MessagesController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->request->allowMethod(['get','post', 'delete']);
+
         $message = $this->Messages->get($id);
-        if ($this->Messages->delete($message)) {
-            $this->Flash->success(__('The message has been deleted.'));
+
+        $deleted = false;
+
+        try {
+            $deleted = $this->Messages->delete($message);
+        } catch(\Exception $e) {
+
+        }    
+        
+        if ($deleted) {
+            $this->Flash->success(__('El mensaje ha sido eliminado.'));
         } else {
-            $this->Flash->error(__('The message could not be deleted. Please, try again.'));
+            $this->Flash->error(__('El mensaje no ha podido ser eliminado.'));
         }
 
         return $this->redirect(['action' => 'index']);

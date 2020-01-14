@@ -58,7 +58,7 @@ class PostsController extends AppController
             $data['img_url'] = $this->postImg($data['img_url'], $slug);
             $post = $this->Posts->patchEntity($post, $data);
             $post->slug = $slug;
-            $post->user_id = $this->Auth->user('id');
+            $post->author_id = $this->Auth->user('id');
             // Tipo de Publicación => 0 == Publicación de Blog
             $post->type = 1;
             if ($this->Posts->save($post)) {
@@ -95,7 +95,7 @@ class PostsController extends AppController
                 $data['img_url'] = $this->postImg($data['img_url'], $post->slug);
             }
             $post = $this->Posts->patchEntity($post, $data);
-            $post->user_id = $this->Auth->user('id');
+            $post->author_id = $this->Auth->user('id');
             if (isset($data['publish']) && $data['publish'] == 'publish') {
                 unset($data['publish']);
                 $post->status = 2;

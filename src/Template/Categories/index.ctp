@@ -27,7 +27,7 @@ $this->assign('title', $title);?>
                   <tr role="row">
                     <td><?= $category->name; ?></td>
                     <td class="text-right">
-                      <a onclick="system.showSwal('Eliminar','¿Eliminar la categoría '+'<?= $category->name ?>'+' ?','delete', '<?= $this->Url->build('/', true) ?><?= strtolower($this->request->controller) ?>/delete/<?= $category->id; ?>')" class="btn btn-round btn-danger btn-icon btn-sm text-white" rel="tooltip" title="Eliminar" data-placement="left"><i class="fas fa-trash"></i></a>
+                      <a onclick="system.showSwal('Eliminar','¿Eliminar la categoría '+'<?= $category->name ?>'+' ?','delete', '<?= $this->Url->build('/', true) ?><?= strtolower($this->request->getParam('controller')) ?>/delete/<?= $category->id; ?>')" class="btn btn-round btn-danger btn-icon btn-sm text-white" rel="tooltip" title="Eliminar" data-placement="left"><i class="fas fa-trash"></i></a>
                       <a href="<?= $this->Url->build('/', true) ?>categories/edit/<?= $category->id; ?>" class="btn btn-round btn-warning btn-icon btn-sm" rel="tooltip" title="Editar" data-placement="left"><i class="fas fa-edit"></i></a>
                     </td>
                   </tr>

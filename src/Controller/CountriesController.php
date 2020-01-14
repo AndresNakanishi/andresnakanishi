@@ -11,6 +11,12 @@ use App\Controller\AppController;
  */
 class CountriesController extends AppController
 {
+    
+    public function initialize()
+    {
+        parent::initialize();
+    }
+
     /**
      * Index method
      *
@@ -18,25 +24,11 @@ class CountriesController extends AppController
      */
     public function index()
     {
+        $this->viewBuilder()->setLayout('system-datatables');
+
         $countries = $this->paginate($this->Countries);
 
         $this->set(compact('countries'));
-    }
-
-    /**
-     * View method
-     *
-     * @param string|null $id Country id.
-     * @return \Cake\Http\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $country = $this->Countries->get($id, [
-            'contain' => [],
-        ]);
-
-        $this->set('country', $country);
     }
 
     /**
@@ -46,15 +38,16 @@ class CountriesController extends AppController
      */
     public function add()
     {
+        $this->viewBuilder()->setLayout('system-default');
         $country = $this->Countries->newEntity();
         if ($this->request->is('post')) {
             $country = $this->Countries->patchEntity($country, $this->request->getData());
             if ($this->Countries->save($country)) {
-                $this->Flash->success(__('The country has been saved.'));
+                $this->Flash->success(__('El país fue guardado con éxito.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The country could not be saved. Please, try again.'));
+            $this->Flash->error(__('El país no pudo ser guardado.'));
         }
         $this->set(compact('country'));
     }
@@ -68,17 +61,20 @@ class CountriesController extends AppController
      */
     public function edit($id = null)
     {
+        $this->viewBuilder()->setLayout('system-default');
+
         $country = $this->Countries->get($id, [
             'contain' => [],
         ]);
+        
         if ($this->request->is(['patch', 'post', 'put'])) {
             $country = $this->Countries->patchEntity($country, $this->request->getData());
             if ($this->Countries->save($country)) {
-                $this->Flash->success(__('The country has been saved.'));
+                $this->Flash->success(__('El país fue guardado con éxito.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The country could not be saved. Please, try again.'));
+            $this->Flash->error(__('El país no pudo ser guardado.'));
         }
         $this->set(compact('country'));
     }
@@ -92,12 +88,22 @@ class CountriesController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->request->allowMethod(['get','post', 'delete']);
+
         $country = $this->Countries->get($id);
-        if ($this->Countries->delete($country)) {
-            $this->Flash->success(__('The country has been deleted.'));
+
+        $deleted = false;
+
+        try {
+            $deleted = $this->Countries->delete($country);
+        } catch(\Exception $e) {
+
+        }    
+        
+        if ($deleted) {
+            $this->Flash->success(__('El país ha sido eliminado.'));
         } else {
-            $this->Flash->error(__('The country could not be deleted. Please, try again.'));
+            $this->Flash->error(__('El país no ha podido ser eliminado.'));
         }
 
         return $this->redirect(['action' => 'index']);

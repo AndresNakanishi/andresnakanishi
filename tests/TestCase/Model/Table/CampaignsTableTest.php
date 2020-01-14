@@ -1,21 +1,21 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\CampaignTable;
+use App\Model\Table\CampaignsTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\CampaignTable Test Case
+ * App\Model\Table\CampaignsTable Test Case
  */
-class CampaignTableTest extends TestCase
+class CampaignsTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \App\Model\Table\CampaignTable
+     * @var \App\Model\Table\CampaignsTable
      */
-    public $Campaign;
+    public $Campaigns;
 
     /**
      * Fixtures
@@ -23,7 +23,8 @@ class CampaignTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.Campaign',
+        'app.Campaigns',
+        'app.Clients',
     ];
 
     /**
@@ -34,8 +35,8 @@ class CampaignTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('Campaign') ? [] : ['className' => CampaignTable::class];
-        $this->Campaign = TableRegistry::getTableLocator()->get('Campaign', $config);
+        $config = TableRegistry::getTableLocator()->exists('Campaigns') ? [] : ['className' => CampaignsTable::class];
+        $this->Campaigns = TableRegistry::getTableLocator()->get('Campaigns', $config);
     }
 
     /**
@@ -45,7 +46,7 @@ class CampaignTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Campaign);
+        unset($this->Campaigns);
 
         parent::tearDown();
     }

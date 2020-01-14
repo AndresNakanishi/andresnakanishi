@@ -11,7 +11,8 @@ $this->assign('title',$title);
             <img src="img/profile.jpg" alt="">
         </div>
         <h3 class="title">Andrés Nakanishi</h3>
-        <p class="category">Consultor - Desarrollador Web - Longlife Learner</p>
+        <p class="category d-none d-xl-block d-lg-block d-md-block">Consultor - Desarrollador Web - Longlife Learner</p>
+        <p class="category d-block d-sm-block d-md-none">Consultor - Desarrollador Web<br>Longlife Learner</p>
         <div class="content">
             <div class="social-description">
                 <h2>+30</h2>

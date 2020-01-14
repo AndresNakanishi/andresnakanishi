@@ -4,12 +4,14 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Busines Entity
+ * Business Entity
  *
  * @property int $id
  * @property string $name
+ *
+ * @property \App\Model\Entity\Client[] $clients
  */
-class Busines extends Entity
+class Business extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -22,5 +24,6 @@ class Busines extends Entity
      */
     protected $_accessible = [
         'name' => true,
+        'clients' => true,
     ];
 }

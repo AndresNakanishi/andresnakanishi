@@ -1,16 +1,16 @@
 <?php
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\CampaignController;
+use App\Controller\ClientsController;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Controller\CampaignController Test Case
+ * App\Controller\ClientsController Test Case
  *
- * @uses \App\Controller\CampaignController
+ * @uses \App\Controller\ClientsController
  */
-class CampaignControllerTest extends TestCase
+class ClientsControllerTest extends TestCase
 {
     use IntegrationTestTrait;
 
@@ -20,7 +20,11 @@ class CampaignControllerTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.Campaign',
+        'app.Clients',
+        'app.Cities',
+        'app.Businesses',
+        'app.Campaigns',
+        'app.Messages',
     ];
 
     /**
