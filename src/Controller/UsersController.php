@@ -233,6 +233,44 @@ class UsersController extends AppController
     public function dashboard()
     {
         $this->viewBuilder()->setLayout('system-default');
+        $mt = TableRegistry::get('messages');
+        $ct = TableRegistry::get('clients');
+        
+        // Mensajes
+        $allMessages = $mt->find('all')->count();
+        $messages = $mt->find('all', ['conditions' => ['created_at >= curdate() - INTERVAL DAYOFWEEK(curdate())+6 DAY']])->count();
+        $lastMessages = $mt->find()->
+        select([
+            'Messages.id',
+            'Messages.message',
+            'Clients.name',
+            'Clients.email',
+            'Messages.created_at',
+            'Businesses.name',
+            'Cities.name'
+        ])->join([[
+            'table' => 'clients',
+            'alias' => 'Clients',
+            'type' => 'INNER',
+            'conditions' => ['Clients.id=Messages.client_id']
+        ]])->join([[
+            'table' => 'businesses',
+            'alias' => 'Businesses',
+            'type' => 'LEFT',
+            'conditions' => ['Businesses.id=Clients.business_id']
+        ]])->join([[
+            'table' => 'cities',
+            'alias' => 'Cities',
+            'type' => 'LEFT',
+            'conditions' => ['Cities.id=Clients.city_id']
+        ]])->order(['Messages.created_at' => 'DESC'])->limit('4')
+        ->enableHydration(false)
+        ->toList();
+        // Clientes
+        $clients = $ct->find('all', ['conditions' => ['client' => 1]])->count();
+        $prospects = $ct->find('all', ['conditions' => ['client' => 0]])->count();
+
+        $this->set(compact('allMessages', 'messages', 'clients', 'prospects', 'lastMessages'));
     }
 
 

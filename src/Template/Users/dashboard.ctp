@@ -14,8 +14,8 @@ $this->assign('title', $title);?>
                                 <div class="icon icon-primary">
                                     <i class="now-ui-icons ui-2_chat-round"></i>
                                 </div>
-                                <h3 class="info-title">859</h3>
-                                <h6 class="stats-title">Messages</h6>
+                                <h3 class="info-title"><?= $messages ?></h3>
+                                <h6 class="stats-title">Mesajes de la semana</h6>
                             </div>
                         </div>
                     </div>
@@ -25,8 +25,8 @@ $this->assign('title', $title);?>
                                 <div class="icon icon-success">
                                     <i class="now-ui-icons business_money-coins"></i>
                                 </div>
-                                <h3 class="info-title"><small>$</small>3,521</h3>
-                                <h6 class="stats-title">Today Revenue</h6>
+                                <h3 class="info-title"><?= $allMessages ?></h3>
+                                <h6 class="stats-title">Total de Mensajes</h6>
                             </div>
                         </div>
                     </div>
@@ -36,8 +36,8 @@ $this->assign('title', $title);?>
                                 <div class="icon icon-info">
                                     <i class="now-ui-icons users_single-02"></i>
                                 </div>
-                                <h3 class="info-title">562</h3>
-                                <h6 class="stats-title">Customers</h6>
+                                <h3 class="info-title"><?= $clients ?></h3>
+                                <h6 class="stats-title">Clientes</h6>
                             </div>
                         </div>
                     </div>
@@ -47,139 +47,36 @@ $this->assign('title', $title);?>
                                 <div class="icon icon-danger">
                                     <i class="now-ui-icons objects_support-17"></i>
                                 </div>
-                                <h3 class="info-title">353</h3>
-                                <h6 class="stats-title">Support Requests</h6>
+                                <h3 class="info-title"><?= $prospects ?></h3>
+                                <h6 class="stats-title">Prospectos</h6>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
       </div>
-      <div class="card">
-        <div class="card-header">
-          <h4 class="card-title"> Simple Table</h4>
-        </div>
-        <div class="card-body">
-          <div class="table-responsive">
-            <table class="table">
-              <thead class=" text-primary">
-                <th>
-                  Name
-                </th>
-                <th>
-                  Country
-                </th>
-                <th>
-                  City
-                </th>
-                <th class="text-right">
-                  Salary
-                </th>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    Dakota Rice
-                  </td>
-                  <td>
-                    Niger
-                  </td>
-                  <td>
-                    Oud-Turnhout
-                  </td>
-                  <td class="text-right">
-                    $36,738
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Minerva Hooper
-                  </td>
-                  <td>
-                    Curaçao
-                  </td>
-                  <td>
-                    Sinaai-Waas
-                  </td>
-                  <td class="text-right">
-                    $23,789
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Sage Rodriguez
-                  </td>
-                  <td>
-                    Netherlands
-                  </td>
-                  <td>
-                    Baileux
-                  </td>
-                  <td class="text-right">
-                    $56,142
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Philip Chaney
-                  </td>
-                  <td>
-                    Korea, South
-                  </td>
-                  <td>
-                    Overland Park
-                  </td>
-                  <td class="text-right">
-                    $38,735
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Doris Greene
-                  </td>
-                  <td>
-                    Malawi
-                  </td>
-                  <td>
-                    Feldkirchen in Kärnten
-                  </td>
-                  <td class="text-right">
-                    $63,542
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Mason Porter
-                  </td>
-                  <td>
-                    Chile
-                  </td>
-                  <td>
-                    Gloucester
-                  </td>
-                  <td class="text-right">
-                    $78,615
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Jon Porter
-                  </td>
-                  <td>
-                    Portugal
-                  </td>
-                  <td>
-                    Gloucester
-                  </td>
-                  <td class="text-right">
-                    $98,615
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+      <h3 class="title">Últimos mensajes</h3>
+      <?php foreach ($lastMessages as $message): ?>
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Mensaje de <?= $message['Clients']['name'] ?> | Fecha: <?= date('d-m-Y',strtotime($message['Messages']['created_at']))?></h4>
+          </div>
+          <div class="card-body">
+            <p class="description" style="font-weight:400;color:#666">
+            <b>Proyecto/Empresa:</b> <?= $message['Businesses']['name'] ?>
+            </p>       
+            <p class="description" style="font-weight:400;color:#666">
+            <b>Ciudad:</b> <?= $message['Cities']['name'] ?>
+            </p>       
+            <p class="description" style="font-weight:400;color:#666">
+            <b>Email:</b> <?= $message['Clients']['email'] ?>
+            </p>       
+            <p class="description" style="font-weight:400;color:#666">
+              <b>Mensaje:</b> <?= $message['Messages']['message'] ?>
+            </p>
           </div>
         </div>
-      </div>
+      <?php endforeach ?>
     </div>
   </div>
 </div>
