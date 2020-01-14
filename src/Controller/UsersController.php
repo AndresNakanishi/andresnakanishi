@@ -239,7 +239,7 @@ class UsersController extends AppController
         // Mensajes
         $allMessages = $mt->find('all')->count();
         $messages = $mt->find('all', ['conditions' => ['created_at >= curdate() - INTERVAL DAYOFWEEK(curdate())+6 DAY']])->count();
-        $lastMessages = $mt->find()->
+        /*$lastMessages = $mt->find()->
         select([
             'Messages.message',
             'Clients.name',
@@ -264,12 +264,13 @@ class UsersController extends AppController
             'conditions' => ['Cities.id=Clients.city_id']
         ]])->order(['Messages.created_at' => 'DESC'])->limit('4')
         ->enableHydration(false)
-        ->toList();
+        ->toList();*/
+        
         // Clientes
         $clients = $ct->find('all', ['conditions' => ['client' => 1]])->count();
         $prospects = $ct->find('all', ['conditions' => ['client' => 0]])->count();
 
-        $this->set(compact('allMessages', 'messages', 'clients', 'prospects', 'lastMessages'));
+        $this->set(compact('allMessages', 'messages', 'clients', 'prospects'));
     }
 
 
