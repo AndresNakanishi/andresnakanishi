@@ -14,17 +14,13 @@ $this->assign('url', $url);
 <div class="page-header page-header-small" filter-color="black" style="max-height: 50vh;">
     <div class="page-header-image" data-parallax="true" style="background-image: url(<?= $image ?>); transform: translate3d(0px, 0px, 0px);">
     </div>
-    <div class="content-center">
-        <div class="row">
-            <div class="col-md-8 ml-auto mr-auto text-center">
-                <h2 class="title" itemprop="name"><?= $post->title ?></h2>
-            </div>
-        </div>
-    </div>
 </div>
 <div class="section">
     <div class="container">
         <div class="row">
+            <div class="col-md-9 ml-auto mr-auto">
+                <h2 class="title" itemprop="name"><?= $post->title ?></h2>
+            </div>
             <div class="col-md-9 ml-auto mr-auto">
                 <div class="text-post" itemprop="articleBody">
                     <?= $post->content ?>

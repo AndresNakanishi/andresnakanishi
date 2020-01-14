@@ -55,28 +55,30 @@ $this->assign('title', $title);?>
                 </div>
             </div>
       </div>
-      <h3 class="title">Últimos mensajes</h3>
-      <?php foreach ($lastMessages as $message): ?>
-        <div class="card">
-          <div class="card-header">
-            <h4 class="card-title">Mensaje de <?= $message['Clients']['name'] ?> | Fecha: <?= date('d-m-Y',strtotime($message['Messages']['created_at']))?></h4>
-          </div>
-          <div class="card-body">
-            <p class="description" style="font-weight:400;color:#666">
-            <b>Proyecto/Empresa:</b> <?= $message['Businesses']['name'] ?>
-            </p>       
-            <p class="description" style="font-weight:400;color:#666">
-            <b>Ciudad:</b> <?= $message['Cities']['name'] ?>
-            </p>       
-            <p class="description" style="font-weight:400;color:#666">
-            <b>Email:</b> <?= $message['Clients']['email'] ?>
-            </p>       
-            <p class="description" style="font-weight:400;color:#666">
-              <b>Mensaje:</b> <?= $message['Messages']['message'] ?>
-            </p>
-          </div>
-        </div>
-      <?php endforeach ?>
+      <?php if (isset($lastMessages)): ?>
+          <h3 class="title">Últimos mensajes</h3>
+          <?php foreach ($lastMessages as $message): ?>
+            <div class="card">
+              <div class="card-header">
+                <h4 class="card-title">Mensaje de <?= $message['Clients']['name'] ?> | Fecha: <?= date('d-m-Y',strtotime($message['Messages']['created_at']))?></h4>
+              </div>
+              <div class="card-body">
+                <p class="description" style="font-weight:400;color:#666">
+                <b>Proyecto/Empresa:</b> <?= $message['Businesses']['name'] ?>
+                </p>       
+                <p class="description" style="font-weight:400;color:#666">
+                <b>Ciudad:</b> <?= $message['Cities']['name'] ?>
+                </p>       
+                <p class="description" style="font-weight:400;color:#666">
+                <b>Email:</b> <?= $message['Clients']['email'] ?>
+                </p>       
+                <p class="description" style="font-weight:400;color:#666">
+                  <b>Mensaje:</b> <?= $message['Messages']['message'] ?>
+                </p>
+              </div>
+            </div>
+          <?php endforeach ?>
+      <?php endif ?>
     </div>
   </div>
 </div>

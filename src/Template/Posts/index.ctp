@@ -8,7 +8,7 @@ $this->assign('title', $title);?>
       <h4 class="card-title">
         <?= $title; ?>
       </h4>
-      <a href="<?= $this->Url->build('/', true) ?><?= strtolower($this->request->controller) ?>/add" class="btn btn-primary btn-round btn-icon" rel="tooltip" title="Escribe una nueva publicación" data-placement="left"><i class="fas fa-plus"></i></a>
+      <a href="<?= $this->Url->build('/', true) ?><?= strtolower($this->request->getParam('controller')) ?>/add" class="btn btn-primary btn-round btn-icon" rel="tooltip" title="Escribe una nueva publicación" data-placement="left"><i class="fas fa-plus"></i></a>
     </div>
     <div class="card-body">
       <div class="toolbar"></div>

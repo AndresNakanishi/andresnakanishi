@@ -82,7 +82,7 @@ class PostsController extends AppController
     public function edit($id = null)
     {
         $this->viewBuilder()->setLayout('posts-create');
-        $session = $this->request->session();
+        $session = $this->request->getSession();
         $post = $this->Posts->get($id, [
             'contain' => []
         ]);
