@@ -1,6 +1,6 @@
 <?php 
 $title = $post->title; 
-$description = substr($post->content, 0 , 90); 
+$description = substr("<p>",substr($post->content, 0 , 90)); 
 $image = $this->Url->build('/', true).$post->img_url;
 $author = $post->user->name.' '.$post->user->surname;
 $url = $this->Url->build('/', true).$post->url;
