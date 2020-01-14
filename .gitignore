@@ -23,6 +23,7 @@ Thumbs.db
 # Tool specific files #
 #######################
 # vim
+*.htaccess
 *~
 *.swp
 *.swo
