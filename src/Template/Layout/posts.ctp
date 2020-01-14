@@ -6,14 +6,30 @@
     <title>
         <?= $this->fetch('title') ?>
     </title>
+    <link rel="canonical" href="https://www.andresnakanishi.com/" />
+    <meta property="og:locale" content="es_ES" />
     <meta name="description" content="<?= $this->fetch('description') ?>" />
-    <meta property="og:locale" content="es_AR" />
     <meta property="og:title" content="<?= $this->fetch('title') ?>" />
     <meta property="og:description" content="<?= $this->fetch('description') ?>" />
     <meta property="og:url" content="<?= $this->fetch('url') ?>" />
     <meta property="og:image" content="<?= $this->fetch('image') ?>" />
     <meta property='og:type' content='article' />
     <meta property='article:author' content='<?= $this->fetch('author') ?>' />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:description" content="<?= $this->fetch('description') ?>" />
+    <meta name="twitter:title" content="<?= $this->fetch('title') ?>" />
+    <meta name="twitter:image" content="<?= $this->fetch('image') ?>" />
+    <!-- Google Analytics -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-156201048-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-156201048-1');
+        </script>
+    <!-- Google Analytics -->
     <!-- FAVICON -->
     <?= $this->Html->meta('icon', 'img/favicon.png', ['type' => 'image/png']) ?>
     <!-- CSS -->

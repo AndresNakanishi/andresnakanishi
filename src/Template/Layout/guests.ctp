@@ -7,6 +7,33 @@
         Andrés Nakanishi |
         <?= $this->fetch('title') ?>
     </title>
+    <link rel="canonical" href="https://www.andresnakanishi.com/" />
+    <meta property="og:locale" content="es_ES" />
+    <meta name="description" content="Ayudamos a las compañías a desarrollar estrategias de transformación digital para poder navegar la incertidumbre de esta nueva era digital." />
+    <meta property="og:title" content="Andrés Nakanishi | Consultor Web" />
+    <meta property="og:description" content="Ayudamos a las compañías a desarrollar estrategias de transformación digital para poder navegar la incertidumbre de esta nueva era digital." />
+    <meta property="og:url" content="https://www.andresnakanishi.com/" />
+    <meta property="og:site_name" content="Andrés Nakanishi" />
+    <meta property="og:image" content="https://www.andresnakanishi.com/img/og/bg.jpg" />
+    <meta property="og:image:secure_url" content="https://www.andresnakanishi.com/img/og/bg.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="600" />
+    <meta property='og:type' content='website' />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:description" content="Ayudamos a las compañías a desarrollar estrategias de transformación digital para poder navegar la incertidumbre de esta nueva era digital." />
+    <meta name="twitter:title" content="Andrés Nakanishi | Consultor Web" />
+    <meta name="twitter:image" content="https://www.andresnakanishi.com/img/og/bg.jpg" />
+    <!-- Google Analytics -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-156201048-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-156201048-1');
+        </script>
+    <!-- Google Analytics -->
     <!-- FAVICON -->
     <?= $this->Html->meta('icon', 'img/favicon.png', ['type' => 'image/png']) ?>
     <!-- CSS -->
