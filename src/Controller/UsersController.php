@@ -97,7 +97,7 @@ class UsersController extends AppController
 
     public function configData($username = null)
     {
-        $session = $this->request->session();
+        $session = $this->request->getSession();
         $this->autoRender = false;
         $user = $this->Users->find('all', ['conditions' => ['username' => $username]])->first();
         if ($this->Auth->user('username') !== $username) {
@@ -151,7 +151,7 @@ class UsersController extends AppController
 
     public function configPass($username = null)
     {
-        $session = $this->request->session();
+        $session = $this->request->getSession();
         $this->viewBuilder()->setLayout('system-default');
         $user = $this->Users->find('all', ['conditions' => ['username' => $username]])->first();
         if ($this->Auth->user('username') !== $username) {
@@ -194,7 +194,7 @@ class UsersController extends AppController
 
     public function config($username = null)
     {
-        $session = $this->request->session();
+        $session = $this->request->getSession();
         $this->viewBuilder()->setLayout('system-default');
         if ($this->Auth->user('username') !== $username) {
             $this->Flash->error(__('No puede editar la información sensible de otro usuario.'));
