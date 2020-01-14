@@ -154,7 +154,7 @@ $this->assign('title',$title);
                                 <h4 class="card-title">Ricardo Andrés Nakanishi</h4>
                                 <h6 class="category text-info">Consultor Web - Desarrollador Web</h6>
 
-                                <p class="card-description" style="font-weight:400;color:#666">Suelo encargarme de la dirección de los proyectos, desarrollo, planeación y control de los mismos.</p>
+                                <p class="card-description" style="font-weight:400;color:#666">Me encargo de la dirección de los proyectos, desarrollo, planeación y control de los mismos.</p>
 
                                 <div class="card-footer">
                                     <a href="https://www.instagram.com/andresnakanishi" target="_blank" class="btn btn-icon btn-neutral btn-instagram"><i class="fab fa-instagram"></i></a>
