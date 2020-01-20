@@ -12,7 +12,9 @@ $system = 'System';
         <?= $system ?> |
         <?= $this->fetch('title') ?>
     </title>
+    <link rel="canonical" href="https://www.andresnakanishi.com/" />
     <!-- FAVICON -->
+    <link rel="shortcut icon" type="image/png" href="https://andresnakanishi.com/img/favicon.png">
     <?= $this->Html->meta('icon', 'img/favicon.png', ['type' => 'image/png']) ?>
     <!-- CSS -->
     <?= $this->Html->css('bootstrap.min.css') ?>
@@ -22,6 +24,12 @@ $system = 'System';
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
+    <script>
+        if (location.protocol != 'https:')
+        {
+         location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+        }
+    </script>
 </head>
 <body class="login-page signup-page sidebar-collapse">
     <?= $this->element('landing-menu') ?>

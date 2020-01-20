@@ -34,6 +34,7 @@
         </script>
     <!-- Google Analytics -->
     <!-- FAVICON -->
+    <link rel="shortcut icon" type="image/png" href="https://andresnakanishi.com/img/favicon.png">
     <?= $this->Html->meta('icon', 'img/favicon.png', ['type' => 'image/png']) ?>
     <!-- CSS -->
     <?= $this->Html->css('bootstrap.min.css') ?>
