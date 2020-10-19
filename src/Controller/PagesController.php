@@ -27,6 +27,12 @@ class PagesController extends AppController
 
     }
 
+    public function tdco()
+    {
+        $this->viewBuilder()->setLayout('tdco');
+
+    }
+
     // 1.0 Blog Page
     public function blog()
     {
